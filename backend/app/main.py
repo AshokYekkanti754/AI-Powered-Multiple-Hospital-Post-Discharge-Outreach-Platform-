@@ -26,6 +26,7 @@ app.add_middleware(
         "http://localhost:3003",
         "http://127.0.0.1:3004",
         "http://localhost:3004",
+        "https://ai-powered-multiple-hospital-post-d-rho.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
