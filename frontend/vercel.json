@@ -13,6 +13,6 @@
     }
   ],
   "env": {
-    "NEXT_PUBLIC_API_BASE_URL": "@ai-prof-api-url"
+    "NEXT_PUBLIC_API_BASE_URL": "https://ai-powered-multiple-hospital-post-q5em.onrender.com"
   }
 }

@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import PersonaSwitcher from "../components/PersonaSwitcher";
 import { useRole } from "../context/RoleContext";
 
-const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000";
+const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://ai-powered-multiple-hospital-post-q5em.onrender.com";
 
 export function getToken(): string | null {
   if (typeof window === "undefined") return null;
@@ -27,7 +27,7 @@ export async function apiFetch<T>(path: string, init: RequestInit = {}): Promise
   try {
     res = await fetch(API + path, { ...init, headers });
   } catch {
-    throw new Error("Cannot reach backend at " + API + ". Start it: uvicorn app.main:app --app-dir backend");
+    throw new Error("Cannot reach backend at " + API + ". Check your internet connection.");
   }
   if (res.status === 401) {
     const body = await res.json().catch(() => ({}));
