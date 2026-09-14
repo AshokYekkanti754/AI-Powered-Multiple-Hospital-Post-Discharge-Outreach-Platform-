@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me_in_env}
+      POSTGRES_DB: outreach_platform
+    ports: ["5432:5432"]
+    volumes: ["postgres_data:/var/lib/postgresql/data"]
+  redis:
+    image: redis:7
+    ports: ["6379:6379"]
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-change_me_in_env}@postgres:5432/outreach_platform
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-change_me_in_env}
+      ENVIRONMENT: development
+    ports: ["8000:8000"]
+    depends_on: [postgres, redis]
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+  worker:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-change_me_in_env}@postgres:5432/outreach_platform
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-change_me_in_env}
+    depends_on: [backend, redis]
+    command: celery -A app.workers.queue_worker.celery_app worker --loglevel=info
+  frontend:
+    image: node:20
+    working_dir: /app
+    volumes: ["./frontend:/app"]
+    ports: ["3000:3000"]
+    depends_on: [backend]
+    command: sh -c "npm install && npm run dev -- --hostname 0.0.0.0"
+volumes:
+  postgres_data:

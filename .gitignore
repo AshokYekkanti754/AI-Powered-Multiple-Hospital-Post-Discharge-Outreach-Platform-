@@ -1,0 +1,66 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+*.pyo
+build/
+dist/
+wheels/
+*.egg-info
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Dependency directories
+node_modules/
+
+# Local environment and secret files
+.env
+.env.*
+!.env.example
+secrets/
+*.secret
+*.pem
+*.key
+*.crt
+service-account*.json
+
+# Database files
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Frontend build artifacts
+.next/
+out/
+*.tsbuildinfo
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Test cache
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
